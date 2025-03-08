@@ -37,7 +37,7 @@ mycontacts/
 │   │   └── Router.jsx          # Setup React Router
 │   ├── App.jsx                 # Main App component
 │   ├── main.jsx                # Entry point for React
-└── global.css                  # Global styles
+|   └── global.css              # Global styles
 └── index.html                  # Main HTML file
 ```
 ### How to Use the Project
