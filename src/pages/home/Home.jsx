@@ -2,17 +2,20 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
-import styles from './Home.module.css';
+import styles from './home.module.css';
 
 let Home = () => {
     let [contacts, setContacts] = useState([]);
-    let [refresh, setRefresh] = useState(false)
+    let [originalContacts, setOriginalContacts] = useState([]); // Store insertion order
+    let [refresh, setRefresh] = useState(false);
+    let [sortOrder, setSortOrder] = useState('default'); // 'asc', 'desc', 'default'
 
     useEffect(() => {
         const fetchContacts = async () => {
             try {
                 const response = await axios.get('http://localhost:5000/contacts');
                 setContacts(response.data);
+                setOriginalContacts(response.data); // Store original order
             } catch (error) {
                 toast.error('Failed to fetch contacts!');
             }
@@ -22,18 +25,42 @@ let Home = () => {
 
     function deleteContact(id) {
         try {
-            axios.delete(`http://localhost:5000/contacts/${id}`)
-            toast.success("Contact Deleted")
-            setRefresh(!refresh)
+            axios.delete(`http://localhost:5000/contacts/${id}`);
+            toast.success("Contact Deleted");
+            setRefresh(!refresh);
+        } catch (e) {
+            toast.error("Error Deleting the Contact");
         }
-        catch (e) {
-            toast.error("Error Deleting the Contact")
+    }
+
+    function sortContacts() {
+        if (sortOrder === 'default') {
+            // Sort in ascending order
+            let sortedContacts = [...contacts].sort((a, b) => a.name.localeCompare(b.name));
+            setContacts(sortedContacts);
+            setSortOrder('asc');
+        } else if (sortOrder === 'asc') {
+            // Sort in descending order
+            let sortedContacts = [...contacts].sort((a, b) => b.name.localeCompare(a.name));
+            setContacts(sortedContacts);
+            setSortOrder('desc');
+        } else {
+            // Restore the original insertion order
+            setContacts(originalContacts);
+            setSortOrder('default');
         }
     }
 
     return (
         <div>
-            <h1>List of Contacts</h1>
+
+            <div className={styles.homeHeader}>
+                <h1>List of Contacts</h1>
+                <button onClick={sortContacts} className={styles.sortButton}>
+                    {sortOrder === 'default' ? 'Sort A → Z' : sortOrder === 'asc' ? 'Sort Z → A' : 'Reset Order'}
+                </button>
+            </div>
+
             {contacts.length > 0 ? (
                 <table>
                     <thead>
