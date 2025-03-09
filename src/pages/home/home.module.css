@@ -1,20 +1,66 @@
-.container {
-    width: 80%;
-    margin: 0 auto;
-    padding: 20px;
-    font-family: 'Arial', sans-serif;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+.homeHeader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
 }
 
-h1 {
-    text-align: center;
+.homeHeader>h1 {
+    height: 100%;
     font-size: 2rem;
-    color: #333;
-    margin-bottom: 20px;
+    padding: 10px 15px;
+    border-radius: 6px;
+    text-align: center;
+    margin: 0;
 }
 
+.sortButton {
+    position: absolute;
+    right: 20px;
+    background-color: #5c2a7a;
+    color: #f9d6bd;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.sortButton:hover {
+    background-color: #4a2161;
+    color: #ffe6e6;
+    transform: scale(1.05);
+}
+
+.sortButton:active {
+    transform: scale(0.95);
+}
+
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        text-align: center;
+        position: relative;
+        height: auto;
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+        padding: 8px;
+    }
+
+    .sortButton {
+        position: static;
+        margin-top: 10px;
+        width: 80%;
+        text-align: center;
+    }
+}
+
+/* Table Styling */
 table {
     width: 80%;
     margin: 0 auto;
@@ -43,6 +89,7 @@ td {
     font-family: 'Times New Roman', Times, serif;
 }
 
+/* Edit and Delete Button Styling */
 .editButton {
     padding: 5px 8px;
     background-color: #f6cfcf20;
@@ -67,6 +114,7 @@ td {
     background-color: #d47f00;
 }
 
+/* Empty Contact Message */
 p {
     text-align: center;
     font-size: 1.2rem;
@@ -74,6 +122,7 @@ p {
     font-style: italic;
 }
 
+/* Responsive Design */
 @media (max-width: 768px) {
     table {
         font-size: 0.9rem;
@@ -91,5 +140,16 @@ p {
     .editButton {
         font-size: 0.9rem;
         padding: 8px 16px;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .sortButton {
+        margin-top: 10px;
+        width: 80%;
     }
 }
