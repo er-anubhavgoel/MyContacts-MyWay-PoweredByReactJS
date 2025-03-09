@@ -27,7 +27,7 @@ let Home = () => {
         try {
             axios.delete(`http://localhost:5000/contacts/${id}`);
             toast.success("Contact Deleted");
-            setRefresh(!refresh);
+            setRefresh(prev => !prev);
         } catch (e) {
             toast.error("Error Deleting the Contact");
         }
